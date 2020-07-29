@@ -23,9 +23,15 @@ public class UserController {
         return returnValue;
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/id/{id}")
     public Optional<User> getUser(@PathVariable Long id) {
-        Optional<User> returnValue = userService.getUser(id);
+        Optional<User> returnValue = userService.getUserByID(id);
+        return returnValue;
+    }
+
+    @GetMapping(path="/email/{emailAddress}")
+    public Optional<User> getUser(@PathVariable String emailAddress) {
+        Optional<User> returnValue = userService.getUserByEmailAddress(emailAddress);
         return returnValue;
     }
 

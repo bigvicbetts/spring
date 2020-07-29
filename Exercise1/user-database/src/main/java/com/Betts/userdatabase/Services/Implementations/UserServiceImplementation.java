@@ -28,8 +28,14 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(Long id) {
+    public Optional<User> getUserByID(Long id) {
         Optional<User> returnValue = userRepository.findById(id);
+        return returnValue;
+    }
+
+    @Override
+    public Optional<User> getUserByEmailAddress(String emailAddress) {
+        Optional<User> returnValue = userRepository.findByEmailAddress(emailAddress);
         return returnValue;
     }
 }
