@@ -9,16 +9,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
     private String emailAddress;
-
-    @Column(nullable = false)
     private String password;
 
     public User() {

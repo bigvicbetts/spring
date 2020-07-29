@@ -38,4 +38,20 @@ public class UserServiceImplementation implements UserService {
         Optional<User> returnValue = userRepository.findByEmailAddress(emailAddress);
         return returnValue;
     }
+
+    @Override
+    public void updateUser(Long id, User userDetails) {
+        User user = userRepository.findById(id).get();
+        user.setEmailAddress(userDetails.getEmailAddress());
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        user.setPassword(userDetails.getPassword());
+        userRepository.save(user);
+
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }
