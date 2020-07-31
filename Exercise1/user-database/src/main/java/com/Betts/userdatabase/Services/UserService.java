@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface UserService {
     UserDto createUser(UserDto userDto);
 
-    List<UserDto> getUsers();
+    List<UserDto> getUsers(Integer pageNo, Integer pageSize, String id);
 
     UserDto getUserByPublicID(UUID id);
 

@@ -7,6 +7,10 @@ import com.Betts.userdatabase.Models.User;
 import com.Betts.userdatabase.Services.UserService;
 import com.Betts.userdatabase.dao.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +28,9 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public List<UserDto> getUsers() {
-        List<User> users = (List<User>) userRepository.findAll();
+    public List<UserDto> getUsers(Integer pageNo, Integer pageSize, String id) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(id));
+        Page<User> users = userRepository.findAll(paging);
         List<UserDto> userDto = new ArrayList<>();
         for (User user : users) {
             UserDto temp = new UserDto();

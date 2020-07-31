@@ -3,14 +3,12 @@ package com.Betts.userdatabase.Controllers;
 import com.Betts.userdatabase.Dto.UserDto;
 import com.Betts.userdatabase.Models.Request.UserRequest;
 import com.Betts.userdatabase.Models.Response.UserResponse;
-import com.Betts.userdatabase.Models.User;
 import com.Betts.userdatabase.Services.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -24,9 +22,11 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> getUsers() {
+    public List<UserResponse> getUsers(@RequestParam(defaultValue = "0") Integer pageNo,
+                                       @RequestParam(defaultValue = "5") Integer pageSize,
+                                       @RequestParam(defaultValue = "id") String sortBy) {
         List<UserResponse> returnValue = new ArrayList<>();
-        List<UserDto> userDtos = userService.getUsers();
+        List<UserDto> userDtos = userService.getUsers(pageNo, pageSize, sortBy);
         for (UserDto userDto : userDtos) {
             UserResponse temp = new UserResponse();
             BeanUtils.copyProperties(userDto, temp);
