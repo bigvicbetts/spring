@@ -1,29 +1,34 @@
-package com.Betts.userdatabase.Models;
+package com.Betts.userdatabase.Dto;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-public class User {
+public class UserDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private UUID publicID;
     private String firstName;
     private String lastName;
     private String emailAddress;
+    private String password;
     private String encryptedPassword;
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String emailAddress, String password) {
+    public UserDto(String firstName, String lastName, String emailAddress, String password, String encryptedPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.encryptedPassword = password;
+        this.password = password;
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public UserDto() {
+    }
+
+    public UUID getPublicID() {
+        return publicID;
+    }
+
+    public void setPublicID(UUID publicID) {
+        this.publicID = publicID;
     }
 
     public Long getId() {
@@ -54,19 +59,19 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public String getEndryptedPassword() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEncryptedPassword() {
         return encryptedPassword;
     }
 
-    public UUID getPublicID() {
-        return publicID;
-    }
-
-    public void setPublicID() {
-        this.publicID = publicID.randomUUID();
-    }
-
-    public void setEncryptedPassword(String password) {
-        this.encryptedPassword = password;
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 }

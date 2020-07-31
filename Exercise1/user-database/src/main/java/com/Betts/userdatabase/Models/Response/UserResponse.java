@@ -1,33 +1,29 @@
-package com.Betts.userdatabase.Models;
+package com.Betts.userdatabase.Models.Response;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class UserResponse {
 
     private UUID publicID;
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private String encryptedPassword;
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String emailAddress, String password) {
+    public UserResponse(String firstName, String lastName, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.encryptedPassword = password;
     }
 
-    public Long getId() {
-        return id;
+    public UserResponse() {
+    }
+
+    public UUID getPublicID() {
+        return publicID;
+    }
+
+    public void setPublicID(UUID publicID) {
+        this.publicID = publicID;
     }
 
     public String getFirstName() {
@@ -54,19 +50,4 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public String getEndryptedPassword() {
-        return encryptedPassword;
-    }
-
-    public UUID getPublicID() {
-        return publicID;
-    }
-
-    public void setPublicID() {
-        this.publicID = publicID.randomUUID();
-    }
-
-    public void setEncryptedPassword(String password) {
-        this.encryptedPassword = password;
-    }
 }

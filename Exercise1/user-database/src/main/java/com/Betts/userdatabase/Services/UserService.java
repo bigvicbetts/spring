@@ -1,12 +1,27 @@
 package com.Betts.userdatabase.Services;
 
+import com.Betts.userdatabase.Dto.UserDto;
+import com.Betts.userdatabase.Models.Request.UserRequest;
+import com.Betts.userdatabase.Models.Response.UserResponse;
 import com.Betts.userdatabase.Models.User;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 public interface UserService {
+    UserDto createUser(UserDto userDto);
 
+    List<UserDto> getUsers();
+
+    UserDto getUserByPublicID(UUID id);
+
+    UserDto getUserByEmailAddress(String emailAddress);
+
+    UserDto updateUser(UUID publicID, UserRequest userRequest);
+
+    UserDto deleteUser(UUID publicID);
+
+    /*
     List<User> getUsers();
 
     void addUser(User user);
@@ -18,4 +33,6 @@ public interface UserService {
     void updateUser(Long id, User userDetails);
 
     void deleteUser(Long id);
+
+     */
 }
