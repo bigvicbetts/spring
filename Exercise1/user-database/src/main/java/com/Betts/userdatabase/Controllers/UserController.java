@@ -1,15 +1,16 @@
 package com.Betts.userdatabase.Controllers;
 
 import com.Betts.userdatabase.Dto.UserDto;
+import com.Betts.userdatabase.Exceptions.CustomAppException;
 import com.Betts.userdatabase.Models.Request.UserRequest;
 import com.Betts.userdatabase.Models.Response.UserResponse;
 import com.Betts.userdatabase.Services.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("users")
@@ -36,31 +37,46 @@ public class UserController {
     }
 
     @GetMapping(path = "/publicID/{publicID}")
-    public UserResponse getUser(@PathVariable UUID publicID) {
-        UserResponse returnValue = new UserResponse();
-        UserDto userDto = userService.getUserByPublicID(publicID);
-        BeanUtils.copyProperties(userDto, returnValue);
-        return returnValue;
+    public UserResponse getUser(@PathVariable UUID publicID) throws CustomAppException {
+        try {
+            UserResponse returnValue = new UserResponse();
+            UserDto userDto = userService.getUserByPublicID(publicID);
+            BeanUtils.copyProperties(userDto, returnValue);
+            return returnValue;
+        }
+        catch(NoSuchElementException exc) {
+            throw new CustomAppException("That ID is not present in the database");
+        }
     }
 
     @GetMapping(path = "email/{emailAddress}")
-    public UserResponse getUser(@PathVariable String emailAddress) {
-        UserResponse returnValue = new UserResponse();
-        UserDto userDto = userService.getUserByEmailAddress(emailAddress);
-        BeanUtils.copyProperties(userDto, returnValue);
-        return returnValue;
+    public UserResponse getUser(@PathVariable String emailAddress) throws CustomAppException {
+        try {
+            UserResponse returnValue = new UserResponse();
+            UserDto userDto = userService.getUserByEmailAddress(emailAddress);
+            BeanUtils.copyProperties(userDto, returnValue);
+            return returnValue;
+        }
+        catch(NoSuchElementException exc) {
+            throw new CustomAppException("That email address is not present in the database");
+        }
     }
 
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest userRequest) {
-        UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(userRequest, userDto);
+    public UserResponse createUser(@RequestBody UserRequest userRequest) throws CustomAppException {
+        try {
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(userRequest, userDto);
 
-        UserDto updatedUser = userService.createUser(userDto);
+            UserDto updatedUser = userService.createUser(userDto);
 
-        UserResponse returnValue = new UserResponse();
-        BeanUtils.copyProperties(updatedUser, returnValue);
-        return returnValue;
+            UserResponse returnValue = new UserResponse();
+            BeanUtils.copyProperties(updatedUser, returnValue);
+            return returnValue;
+        }
+        catch(NoSuchElementException exc) {
+            throw new CustomAppException("That ID is not present in the database");
+        }
     }
 
     @PutMapping(path = "/publicID/{publicID}")
@@ -78,41 +94,4 @@ public class UserController {
         BeanUtils.copyProperties(userDto, returnValue);
         return returnValue;
     }
-
-    /*
-    @GetMapping
-    public List<User> getUsers() {
-        List<User> returnValue = userService.getUsers();
-        return returnValue;
-    }
-
-    @GetMapping(path = "/id/{id}")
-    public Optional<User> getUser(@PathVariable Long id) {
-        Optional<User> returnValue = userService.getUserByID(id);
-        return returnValue;
-    }
-
-    @GetMapping(path="/email/{emailAddress}")
-    public Optional<User> getUser(@PathVariable String emailAddress) {
-        Optional<User> returnValue = userService.getUserByEmailAddress(emailAddress);
-        return returnValue;
-    }
-
-    @PostMapping
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
-    }
-
-    @PutMapping(path="/id/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        userService.updateUser(id, userDetails);
-    }
-
-    @DeleteMapping(path="/id/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-    }
-    */
-
-
 }

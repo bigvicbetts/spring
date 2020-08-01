@@ -92,45 +92,4 @@ public class UserServiceImplementation implements UserService {
         BeanUtils.copyProperties(storedUserDetails, returnValue);
         return returnValue;
     }
-
-    /*
-    @Override
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
-    }
-
-    @Override
-    public void addUser(User user) {
-        userRepository.save(user);
-    }
-
-    @Override
-    public Optional<User> getUserByID(Long id) {
-        Optional<User> returnValue = userRepository.findById(id);
-        return returnValue;
-    }
-
-    @Override
-    public Optional<User> getUserByEmailAddress(String emailAddress) {
-        Optional<User> returnValue = userRepository.findByEmailAddress(emailAddress);
-        return returnValue;
-    }
-
-    @Override
-    public void updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id).get();
-        user.setEmailAddress(userDetails.getEmailAddress());
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setPassword(userDetails.getPassword());
-        userRepository.save(user);
-
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
-     */
 }
