@@ -1,9 +1,12 @@
 package com.Betts.userdatabase.Dto;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.UUID;
 
 public class UserDto {
 
+    private HttpStatus httpStatus;
     private Long id;
     private UUID publicID;
     private String firstName;
@@ -73,5 +76,13 @@ public class UserDto {
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 }

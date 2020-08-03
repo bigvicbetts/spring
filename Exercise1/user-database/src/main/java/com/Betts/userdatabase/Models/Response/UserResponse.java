@@ -1,9 +1,13 @@
 package com.Betts.userdatabase.Models.Response;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.ServerHttpResponse;
+
 import java.util.UUID;
 
 public class UserResponse {
 
+    private HttpStatus httpStatus;
     private UUID publicID;
     private String firstName;
     private String lastName;
@@ -50,4 +54,11 @@ public class UserResponse {
         this.emailAddress = emailAddress;
     }
 
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }

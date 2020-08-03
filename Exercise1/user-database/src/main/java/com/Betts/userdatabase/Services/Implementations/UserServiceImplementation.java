@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class UserServiceImplementation implements UserService {
         List<UserDto> userDto = new ArrayList<>();
         for (User user : users) {
             UserDto temp = new UserDto();
+            temp.setHttpStatus(HttpStatus.ACCEPTED);
             BeanUtils.copyProperties(user, temp);
             userDto.add(temp);
         }
@@ -44,6 +46,7 @@ public class UserServiceImplementation implements UserService {
     public UserDto getUserByPublicID(UUID publicID) {
         User selectedUser = userRepository.findByPublicID(publicID).get();
         UserDto returnValue = new UserDto();
+        returnValue.setHttpStatus(HttpStatus.ACCEPTED);
         BeanUtils.copyProperties(selectedUser, returnValue);
         return returnValue;
     }
@@ -52,6 +55,7 @@ public class UserServiceImplementation implements UserService {
     public UserDto getUserByEmailAddress(String emailAddress) {
         User selectedUser = userRepository.findByEmailAddress(emailAddress).get();
         UserDto returnValue = new UserDto();
+        returnValue.setHttpStatus(HttpStatus.ACCEPTED);
         BeanUtils.copyProperties(selectedUser, returnValue);
         return returnValue;
     }
@@ -62,6 +66,7 @@ public class UserServiceImplementation implements UserService {
         BeanUtils.copyProperties(userRequest, selectedUser);
         User storedUserDetails = userRepository.save(selectedUser);
         UserDto returnValue = new UserDto();
+        returnValue.setHttpStatus(HttpStatus.ACCEPTED);
         BeanUtils.copyProperties(storedUserDetails, returnValue);
         return returnValue;
     }
@@ -72,6 +77,7 @@ public class UserServiceImplementation implements UserService {
         Long userID = selectedUser.getId();
         userRepository.deleteById(userID);
         UserDto returnValue = new UserDto();
+        returnValue.setHttpStatus(HttpStatus.ACCEPTED);
         returnValue.setLastName("Deleted");
         returnValue.setFirstName("Deleted");
         returnValue.setEmailAddress("Deleted");
@@ -89,6 +95,7 @@ public class UserServiceImplementation implements UserService {
         User storedUserDetails = userRepository.save(newUser);
 
         UserDto returnValue = new UserDto();
+        returnValue.setHttpStatus(HttpStatus.ACCEPTED);
         BeanUtils.copyProperties(storedUserDetails, returnValue);
         return returnValue;
     }
